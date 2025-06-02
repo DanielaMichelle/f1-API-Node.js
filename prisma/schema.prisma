@@ -65,7 +65,7 @@ model Driver {
   worldChamps Int @default(0)
   birthDate DateTime
   imageUrl String?
-  active Boolean
+  active Boolean @default(true)
   createdAt DateTime @default(now())
 
   // One-to-many Driver-Team - Foreign key to Team
