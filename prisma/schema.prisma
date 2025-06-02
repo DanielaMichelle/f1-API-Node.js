@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Season {
+  id Int @id @default(autoincrement())
+  year Int
+  name String
+  createdAt DateTime @default(now())
+
+  // One-to-many Season-Race - 1 Season has many Races
+  races Race[]
+}
+
+model Race {
+  id Int @id @default(autoincrement())
+  name String
+  place String
+  circuit String
+  date DateTime
+  createdAt DateTime @default(now())
+
+  // One-to-many Season-Race -  Foreign key to Season
+  seasonId Int
+  season Season @relation(fields: [seasonId], references: [id])
+
+ // One-to-many Race-Result - 1 Race has many Results
+  results Result[]
+}
+
+model Team {
+  id Int @id @default(autoincrement())
+  name String
+  fullName String
+  country String
+  teamChief String
+  entryYear Int
+  worldChamps Int @default(0)
+  active Boolean @default(true)
+  logoUrl String?
+  createdAt DateTime @default(now())
+
+  // One-to-many Team-Driver - 1 Team has many Drivers
+  drivers Driver[]
+}
+
+model Driver {
+  id Int @id @default(autoincrement())
+  name String
+  number Int @unique
+  country String
+  podiums Int @default(0)
+  worldChamps Int @default(0)
+  birthDate DateTime
+  imageUrl String?
+  active Boolean
+  createdAt DateTime @default(now())
+
+  // One-to-many Driver-Team - Foreign key to Team
+  teamId Int
+  team Team @relation(fields: [teamId], references: [id])
+
+  // One-to-many Driver-Result - 1 Driver has many Results
+  results Result[]
+}
+
+
+model Result {
+  id Int @id @default(autoincrement())
+  position Int
+  points Int
+  time String
+  createdAt DateTime @default(now())
+
+  // One-to-many Driver-Result - Foreign key to Driver
+  driverId Int
+  driver Driver @relation(fields: [driverId], references: [id])
+
+ // One-to-many Race-Result - Foreign key to Race
+  raceId Int
+  race Race @relation(fields: [raceId], references: [id])
+
+  @@unique([driverId, raceId]) // Ensure a driver can only have one result per race
+} 

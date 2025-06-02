@@ -1,0 +1,27 @@
+{
+  "name": "f1-api-nodejs",
+  "version": "1.0.0",
+  "description": "Formula 1 API porject with Node.js, Postgres, Prisma and TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --clear src/app.ts"
+  },
+  "author": "Danielamij",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.15.29",
+    "prisma": "^6.8.2",
+    "ts-node-dev": "^2.0.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.8.2",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "typescript": "^5.8.3"
+  }
+}
