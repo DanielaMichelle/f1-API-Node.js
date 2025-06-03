@@ -17,10 +17,10 @@ export const getAllSeasons = async (req: Request, res: Response) : Promise<void>
 }
 
 export const getSeasonById = async (req: Request, res: Response) : Promise<void> => {
-    const seasonId = req.params.id;
+    const seasonId = Number(req.params.id);
     try {
         const season = await seasonModel.findUnique({
-            where: { id: Number(seasonId) }
+            where: { id: seasonId }
         });
 
         if(!season) {
@@ -66,10 +66,10 @@ export const createSeason = async (req: Request, res: Response) : Promise<void> 
 }
 
 export const getRacesInSeason = async(req: Request, res: Response) : Promise<void> => {
-    const seasonId = req.params.id;
+    const seasonId = Number(req.params.id);
     try {
         const season = await seasonModel.findUnique({
-            where: { id: Number(seasonId) },
+            where: { id: seasonId },
             include: {
                 races: true 
             }
@@ -81,7 +81,7 @@ export const getRacesInSeason = async(req: Request, res: Response) : Promise<voi
         }
 
         const races = season.races;
-        if(races.length === 0) {
+        if(!races || races.length === 0) {
             res.status(404).json({ message: 'Races not found for this season' });
             return;
         }

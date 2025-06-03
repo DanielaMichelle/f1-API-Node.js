@@ -4,6 +4,7 @@ config();
 import cors from 'cors';
 import seasonRouter from './routes/seasonRoutes';
 import raceRouter from './routes/raceRoutes';
+import teamRouter from './routes/teamRoutes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use('/v1/seasons', seasonRouter);
 app.use('/v1/races', raceRouter);
+app.use('/v1/teams', teamRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');

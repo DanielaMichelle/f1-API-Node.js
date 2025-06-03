@@ -17,10 +17,10 @@ export const getAllRaces = async (req: Request, res: Response ) : Promise<void> 
 };
 
 export const getRaceById = async (req: Request, res: Response) : Promise<void> => {
-    const raceId = req.params.id;
+    const raceId = Number(req.params.id);
     try {
         const race = await raceModel.findUnique({
-            where: { id: Number(raceId) }
+            where: { id: raceId }
         });
 
         if(!race) {
@@ -60,10 +60,10 @@ export const createRace = async (req: Request, res: Response) : Promise<void> =>
 
 export const getResultsForRace = async (req: Request, res: Response) : Promise<void> => {
     try {
-        const raceId = req.params.id;
+        const raceId = Number(req.params.id);
         
         const race = await raceModel.findUnique({
-            where: { id: Number(raceId) },
+            where: { id: raceId },
             include: {
                 results: true // Include results in the response
             }
