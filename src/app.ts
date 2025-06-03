@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 config();
 import cors from 'cors';
 import seasonRouter from './routes/seasonRoutes';
+import raceRouter from './routes/raceRoutes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/v1/seasons', seasonRouter);
+app.use('/v1/races', raceRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');

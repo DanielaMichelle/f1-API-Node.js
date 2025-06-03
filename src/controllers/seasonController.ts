@@ -1,5 +1,6 @@
 import seasonModel from '../models/season';
 import { Request, Response } from 'express';
+import { Season } from '../models/season.interface';
 
 export const getAllSeasons = async (req: Request, res: Response) : Promise<void> => {
     try {
@@ -19,7 +20,7 @@ export const getSeasonById = async (req: Request, res: Response) : Promise<void>
     const seasonId = req.params.id;
     try {
         const season = await seasonModel.findUnique({
-            where: { id: parseInt(seasonId) }
+            where: { id: Number(seasonId) }
         });
 
         if(!season) {
@@ -35,16 +36,20 @@ export const getSeasonById = async (req: Request, res: Response) : Promise<void>
 
 export const createSeason = async (req: Request, res: Response) : Promise<void> => {
     try {
-        const { year, name } = req.body;
+        const { year, name } = req.body as Season;
+        if(!year || !name) {
+            res.status(400).json({ message: 'Year and name are required' });
+            return;
+        }
 
-        if(!year) {
-            res.status(400).json({ message: 'Year is required' });
+        const existingSeason = await seasonModel.findFirst({ 
+            where: { year } 
+        });
+        if(existingSeason) {
+            res.status(400).json({ message: `Season with year ${year} already exists` });
             return;
-        }
-        if(!name) {
-            res.status(400).json({ message: 'Name is required' });
-            return;
-        }
+        };
+
 
         const newSeason = await seasonModel.create({
             data: {
@@ -64,7 +69,7 @@ export const getRacesInSeason = async(req: Request, res: Response) : Promise<voi
     const seasonId = req.params.id;
     try {
         const season = await seasonModel.findUnique({
-            where: { id: parseInt(seasonId) },
+            where: { id: Number(seasonId) },
             include: {
                 races: true 
             }
