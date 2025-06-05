@@ -16,7 +16,7 @@ datasource db {
 
 model Season {
   id Int @id @default(autoincrement())
-  year Int
+  year Int @unique // Unique year for each season
   name String
   createdAt DateTime @default(now())
 
@@ -30,6 +30,7 @@ model Race {
   place String
   circuit String
   date DateTime
+  slug String // slug for URL-friendly identification (name in lowercase with dashes)
   createdAt DateTime @default(now())
 
   // One-to-many Season-Race -  Foreign key to Season
@@ -38,6 +39,9 @@ model Race {
 
  // One-to-many Race-Result - 1 Race has many Results
   results Result[]
+
+  @@unique([slug, seasonId]) // combination of slug and seasonId must be unique
+
 }
 
 model Team {

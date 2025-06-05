@@ -1,6 +1,6 @@
 import raceModel from '../models/race';
 import { Request, Response } from 'express';
-import { Race } from '../models/race.interface'; 
+import { Race } from '../models/race.interface';
 
 export const getAllRaces = async (req: Request, res: Response ) : Promise<void> => {
     try {
@@ -46,6 +46,7 @@ export const createRace = async (req: Request, res: Response) : Promise<void> =>
             res.status(400).json({ message: 'All fields are required (name, place, circuit, date and seasonId)' });
             return;
         }
+        const slugName = name.toLowerCase().replace(/\s+/g, '-');
         
         const newRace = await raceModel.create({
             data: {
@@ -53,6 +54,7 @@ export const createRace = async (req: Request, res: Response) : Promise<void> =>
                 place,
                 circuit,
                 date: new Date(date), // Ensure date is a Date object
+                slug: slugName, // Set the slug before creation
                 seasonId: Number(seasonId) // Ensure seasonId is an integer
             }
         });
