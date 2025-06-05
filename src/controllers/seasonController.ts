@@ -18,6 +18,11 @@ export const getAllSeasons = async (req: Request, res: Response) : Promise<void>
 
 export const getSeasonById = async (req: Request, res: Response) : Promise<void> => {
     const seasonId = Number(req.params.id);
+    if(isNaN(seasonId)) {
+        res.status(400).json({ message: 'Invalid season ID' });
+        return;
+    }
+
     try {
         const season = await seasonModel.findUnique({
             where: { id: seasonId }
@@ -67,6 +72,10 @@ export const createSeason = async (req: Request, res: Response) : Promise<void> 
 
 export const getRacesInSeason = async(req: Request, res: Response) : Promise<void> => {
     const seasonId = Number(req.params.id);
+    if(isNaN(seasonId)) {
+        res.status(400).json({ message: 'Invalid season ID' });
+        return;
+    }
     try {
         const season = await seasonModel.findUnique({
             where: { id: seasonId },

@@ -1,7 +1,6 @@
 import teamModel from "../models/team";
 import { Request, Response } from "express";
 import { Team } from "../models/team.interface";
-import team from "../models/team";
 
 export const getAllTeams = async (req: Request, res: Response) : Promise<void> => {
     try {
@@ -53,6 +52,11 @@ export const createTeam = async (req: Request, res: Response) : Promise<void> =>
 
 export const getDriversInTeam = async (req: Request, res: Response) : Promise<void> => {
     const teamId = Number(req.params.id);
+    if (isNaN(teamId)) {
+        res.status(400).json({ message: 'Invalid team ID' });
+        return;
+    }
+    
     try {
         const team = await teamModel.findUnique({
             where: { id: teamId },
@@ -75,9 +79,13 @@ export const getDriversInTeam = async (req: Request, res: Response) : Promise<vo
     }
 };
 
-// Use PATCH when you want to update a part of a resource. Use PUT when you want to replace the whole thing.
 export const addWorldChampionship = async (req: Request, res: Response) : Promise<void> => {
     const teamId = Number(req.params.id);
+    if (isNaN(teamId)) {
+        res.status(400).json({ message: 'Invalid team ID' });
+        return;
+    }
+
     try {
         const team = await teamModel.findUnique({
             where: { id: teamId }
@@ -103,8 +111,12 @@ export const addWorldChampionship = async (req: Request, res: Response) : Promis
 
 export const updateTeamStatus = async (req: Request, res: Response) : Promise<void> => {
     const teamId = Number(req.params.id);
-    const { isActive } = req.body;
+    if (isNaN(teamId)) {
+        res.status(400).json({ message: 'Invalid team ID' });
+        return;
+    }
 
+    const { isActive } = req.body;
     if(typeof isActive !== 'boolean') {
         res.status(400).json({ message: 'isActive field must be a boolean' });
         return;
@@ -135,8 +147,12 @@ export const updateTeamStatus = async (req: Request, res: Response) : Promise<vo
 
 export const updateTeamLogo = async (req: Request, res: Response) : Promise<void> => {
     const teamId = Number(req.params.id);
-    const { logoUrl } = req.body;
+    if (isNaN(teamId)) {
+        res.status(400).json({ message: 'Invalid team ID' });
+        return;
+    }
 
+    const { logoUrl } = req.body;
     if (!logoUrl || typeof logoUrl !== 'string') {
         res.status(400).json({ message: 'logoUrl must be a valid string' });
         return;

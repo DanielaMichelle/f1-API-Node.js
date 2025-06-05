@@ -18,6 +18,11 @@ export const getAllRaces = async (req: Request, res: Response ) : Promise<void> 
 
 export const getRaceById = async (req: Request, res: Response) : Promise<void> => {
     const raceId = Number(req.params.id);
+    if (isNaN(raceId)) {
+        res.status(400).json({ message: 'Invalid race ID' });
+        return;
+    }
+
     try {
         const race = await raceModel.findUnique({
             where: { id: raceId }
@@ -61,6 +66,11 @@ export const createRace = async (req: Request, res: Response) : Promise<void> =>
 export const getResultsForRace = async (req: Request, res: Response) : Promise<void> => {
     try {
         const raceId = Number(req.params.id);
+
+        if (isNaN(raceId)) {
+            res.status(400).json({ message: 'Invalid race ID' });
+            return;
+        }
         
         const race = await raceModel.findUnique({
             where: { id: raceId },
