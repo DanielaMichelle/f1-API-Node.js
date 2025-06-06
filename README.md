@@ -1,4 +1,4 @@
-# 🚀 **Formula 1 API - Dockerized API Restful**
+# 🏎️ **Formula 1 API - Dockerized API Restful**
 
 Sistema de gestión de datos de Fórmula 1. Permite gestionar pilotos, equipos, temporadas y más. Construido con Node.js, PostgreSQL y Prisma, usando Docker para facilitar el despliegue.
 
