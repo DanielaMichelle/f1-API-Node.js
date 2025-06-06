@@ -1,7 +1,7 @@
 import seasonModel from '../models/season';
 import { Request, Response } from 'express';
 import { Season } from '../models/season.interface';
-import { Prisma } from '@prisma/client';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 export const getAllSeasons = async (req: Request, res: Response) : Promise<void> => {
     try {
@@ -67,7 +67,7 @@ export const createSeason = async (req: Request, res: Response) : Promise<void> 
 
     } catch (error) {
         console.error('Error creating season:', error);
-        if(error instanceof Prisma.PrismaClientKnownRequestError) {
+        if(error instanceof PrismaClientKnownRequestError) {
             if(error.code === 'P2002') {
                 res.status(409).json({ message: 'Season with this year already exists' });
                 return;

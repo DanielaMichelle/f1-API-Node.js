@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from '@prisma/client';
+import { PrismaClient } from "../src/generated/prisma";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -14,43 +14,50 @@ async function main() {
                 name: 'Australian Grand Prix',
                 place: 'Melbourne',
                 circuit: 'Albert Park Grand Prix Circuit',
-                date: new Date('2025-03-16')
+                date: new Date('2025-03-16'),
+                slug: "australian-grand-prix"
               },
               {
                 name: 'Chinese Grand Prix',
                 place: 'Shanghai',
                 circuit: 'Shanghai International Circuit',
-                date: new Date('2025-03-23')
+                date: new Date('2025-03-23'),
+                slug: "chinese-grand-prix"
               },
               {
                 name: 'Japanese Grand Prix',
                 place: 'Suzuka',
                 circuit: 'Suzuka Circuit',
-                date: new Date('2025-04-06')
+                date: new Date('2025-04-06'),
+                slug: "japanese-grand-prix"
               },
               {
                 name: 'Bahrain Grand Prix',
                 place: 'Sakhir',
                 circuit: 'Bahrain International Circuit',
-                date: new Date('2025-04-13')
+                date: new Date('2025-04-13'),
+                slug: "bahrain-grand-prix"
               },
               {
                 name: 'Saudi Arabian Grand Prix',
                 place: 'Jeddah',
                 circuit: 'Jeddah Corniche Circuit',
-                date: new Date('2025-04-20')
+                date: new Date('2025-04-20'),
+                slug: "saudi-arabian-grand-prix"
               },
               {
                 name: 'Miami Grand Prix',
                 place: 'Miami',
                 circuit: 'Miami International Autodrome',
-                date: new Date('2025-05-04')
+                date: new Date('2025-05-04'),
+                slug: "miami-grand-prix"
               },
               {
                 name: 'Emilia Romagna Grand Prix',
                 place: 'Imola',
                 circuit: 'Autodromo Internazionale  Enzo e Dino Ferrari',
-                date: new Date('2025-05-18')
+                date: new Date('2025-05-18'),
+                slug: "emilia-romagna-grand-prix"
               }
             ]
           }

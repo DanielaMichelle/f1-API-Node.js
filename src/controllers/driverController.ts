@@ -1,7 +1,7 @@
 import driverModel from '../models/driver';
 import { Request, Response } from 'express';
 import { Driver } from '../models/driver.interface';
-import { Prisma } from '@prisma/client';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 export const getAllDrivers = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -66,7 +66,7 @@ export const createDriver = async (req: Request, res: Response): Promise<void> =
     } catch (error) {
         console.error('Error creating driver:', error);
 
-        if( error instanceof Prisma.PrismaClientKnownRequestError) {
+        if( error instanceof PrismaClientKnownRequestError) {
             // P2002 error code indicates a unique constraint violation
             if (error.code === 'P2002') {
                 res.status(409).json({ message: 'Driver with this number already exists for the team' });
@@ -114,7 +114,7 @@ export const updateDriver = async (req: Request, res: Response): Promise<void> =
         res.status(200).json(updatedDriver);
     } catch (error) {
         console.error('Error updating driver:', error);
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error instanceof PrismaClientKnownRequestError) {
             // P2002 error code indicates a unique constraint violation
             if (error.code === 'P2002') {
                 res.status(409).json({ message: 'Driver with this number already exists for the team' });
