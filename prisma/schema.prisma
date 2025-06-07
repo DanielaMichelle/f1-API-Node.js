@@ -54,6 +54,7 @@ model Team {
   worldChamps Int @default(0)
   active Boolean @default(true)
   logoUrl String?
+  slug String @unique // slug for URL-friendly identification (name in lowercase with dashes)
   createdAt DateTime @default(now())
 
   // One-to-many Team-Driver - 1 Team has many Drivers
@@ -70,6 +71,7 @@ model Driver {
   birthDate DateTime
   imageUrl String?
   active Boolean @default(true)
+  slug String @unique // slug for URL-friendly identification (name in lowercase with dashes)
   createdAt DateTime @default(now())
 
   // One-to-many Driver-Team - Foreign key to Team

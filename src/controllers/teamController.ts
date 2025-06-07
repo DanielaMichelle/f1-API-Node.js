@@ -33,6 +33,23 @@ export const getTeamById = async (req: Request, res: Response) : Promise<void> =
     }
 };
 
+export const getTeamBySlug = async (req: Request, res: Response) : Promise<void> => {
+    const slug = req.params.slug;
+    try {
+        const team =  await teamModel.findUnique({
+            where: { slug }
+        });
+        if (!team) {
+            res.status(404).json({ message: `Team not found` });
+            return;
+        }
+        res.status(200).json(team);
+    } catch (error) {
+        console.error('Error fetching team by name:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
 export const createTeam = async (req: Request, res: Response) : Promise<void> => {
     try {
         const { name, fullName, country, teamChief,  entryYear, worldChamps, active, logoUrl} = req.body as Team;
@@ -41,7 +58,17 @@ export const createTeam = async (req: Request, res: Response) : Promise<void> =>
             return;
         }
         const newTeam = await teamModel.create({
-            data: { name, fullName, country, teamChief, entryYear, worldChamps, active, logoUrl },
+            data: { 
+                name, 
+                fullName, 
+                country, 
+                teamChief, 
+                entryYear, 
+                worldChamps, 
+                active, 
+                slug: name.toLowerCase().replace(/\s+/g, '-'), // Generate slug from name 
+                logoUrl 
+            },
         });
         res.status(201).json(newTeam);
     } catch (error) {

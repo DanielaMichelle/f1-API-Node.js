@@ -76,6 +76,7 @@ async function main() {
       worldChamps: 9,
       active: true,
       logoUrl: "https://media.formula1.com/image/upload/f_auto,c_limit,q_75,w_1320/content/dam/fom-website/2018-redesign-assets/team%20logos/mclaren",
+      slug: "mclaren"
     }
   });
 
@@ -88,6 +89,7 @@ async function main() {
       birthDate: new Date('2001-04-06'),
       imageUrl: "https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/drivers/2025Drivers/piastri",
       active: true,
+      slug: "oscar-piastri",
       teamId: mclarenTeam.id,
     }
   });
@@ -101,6 +103,7 @@ async function main() {
       birthDate: new Date('1999-11-13'),
       imageUrl: "https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/drivers/2025Drivers/norris",
       active: true,
+      slug: "lando-norris",
       teamId: mclarenTeam.id,
     }
   });
@@ -116,6 +119,7 @@ async function main() {
       worldChamps: 16,
       active: true,
       logoUrl: "https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/2018-redesign-assets/team%20logos/ferrari",
+      slug: "ferrari"
     }
   });
 
@@ -128,6 +132,7 @@ async function main() {
       birthDate: new Date('1997-10-16'),
       imageUrl: "https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/drivers/2025Drivers/leclerc",
       active: true,
+      slug: "charles-leclerc",
       teamId: ferrariTeam.id,
     }
   });
@@ -142,6 +147,7 @@ async function main() {
       birthDate: new Date('1985-01-07'),
       imageUrl: "https://media.formula1.com/image/upload/f_auto,c_limit,q_auto,w_1320/content/dam/fom-website/drivers/2025Drivers/hamilton",
       active: true,
+      slug: "lewis-hamilton", 
       teamId: ferrariTeam.id,
     }
   });

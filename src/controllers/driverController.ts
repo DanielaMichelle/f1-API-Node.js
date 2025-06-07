@@ -41,6 +41,28 @@ export const getDriverById = async (req: Request, res: Response): Promise<void> 
     }
 };
 
+export const getDriverBySlug = async(req: Request, res: Response): Promise<void> => {
+    const slug = req.params.slug;
+    if (!slug) {
+        res.status(400).json({ message: 'Slug is required' });
+        return;
+    }
+    try {
+        const driver = await driverModel.findUnique({
+            where: { slug }
+        });
+
+        if(!driver) {
+            res.status(404).json({ message: 'Driver not found' });
+            return;
+        }
+        res.status(200).json(driver);
+    } catch (error) {
+        console.error('Error fetching driver by slug:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
 export const createDriver = async (req: Request, res: Response): Promise<void> => {
     try {
         const { name, number, country, podiums, worldChamps, birthDate, imageUrl, active, teamId } = req.body as Driver;
@@ -59,6 +81,7 @@ export const createDriver = async (req: Request, res: Response): Promise<void> =
                 birthDate: new Date(birthDate),
                 imageUrl,
                 active: active ?? true, // Default to true if not provided
+                slug: name.toLowerCase().replace(/\s+/g, '-'), // Simple slug generation
                 teamId
             }
         });
