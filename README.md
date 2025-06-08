@@ -11,7 +11,8 @@ Sistema de gestión de datos de Fórmula 1. Permite gestionar pilotos, equipos, 
 - **Docker** 🐳 para la contenedorización y orquestación
 - **Express.js** como framework web para Node.js
 - **Postman** 📝 para probar la API y ver la documentación
-
+- **jwt** para autenticación y autorización basada en tokens seguros
+- **bcrypt** para el hash seguro de contraseñas de usuarios
 ---
 
 ## 🛠️ **Requisitos Técnicos**
@@ -68,4 +69,6 @@ Antes de comenzar, asegúrate de tener los siguientes requisitos:
    Tu API de Node.js estará corriendo en el puerto especificado en tu archivo .env
 
    Puedes probar las rutas utilizando Postman o realizar peticiones directamente desde tu navegador.
-   Ejemplo de endpoint: `http://localhost:3000/v1/drivers`
+   Inicia registrando tu usuario con el endpoint `http://localhost:3000/v1/auth/register` 
+   Sigue iniciando sesión con `http://localhost:3000/v1/auth/login` y consigue un token
+   Y podras probar los endpoints como: `http://localhost:3000/v1/drivers`
