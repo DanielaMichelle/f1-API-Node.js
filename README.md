@@ -65,7 +65,7 @@ Antes de comenzar, asegúrate de tener los siguientes requisitos:
    ```bash
    npm run dev
 
-4. **Accede a la API**
+9. **Accede a la API**
    Tu API de Node.js estará corriendo en el puerto especificado en tu archivo .env
 
    Puedes probar las rutas utilizando Postman o realizar peticiones directamente desde tu navegador.
